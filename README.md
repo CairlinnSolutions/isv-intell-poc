@@ -1,6 +1,10 @@
 python3 -m venv env
 source env/bin/activate
 
+git add .
+$ git commit -am "make it better"
+$ git push heroku master
+
 # Flask Heroku Scheduler
 
 This repo is a template for Flask Heroku deployment of scheduled jobs. We often run into the need to run "cronjob" like jobs on a server fr our machine learning pipelines. There are many ways to do this, but deploying to Heroku is the easiest. This code is supposed to be a template for how to do that quickly.
