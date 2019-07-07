@@ -1,6 +1,10 @@
 python3 -m venv env
 source env/bin/activate
 
+heroku addons:create heroku-redis:hobby-dev -a aabatch
+
+heroku local:run python manage.py hello
+
 git add .
 $ git commit -am "make it better"
 $ git push heroku master
