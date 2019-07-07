@@ -13,6 +13,7 @@ manager = Manager(app)
 @manager.command
 def hello():
     result = q.enqueue(count_words_at_url, 'http://heroku.com')
+    print(result)
     print("hello")
 
 
