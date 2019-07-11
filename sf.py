@@ -29,7 +29,7 @@ def getSFToken():
 
     baseurl = "https://" + r.json().get("instance_url")
     starturl = baseurl + "/services/data/v46.0/sobjects/"
-    d['extdataeurl'] = "/services/data/v46.0/sobjects/InsightsExternalData"
+    d['extdataurl'] = "/services/data/v46.0/sobjects/InsightsExternalData"
     d['extdataparturl'] = "/services/data/v46.0/sobjects/InsightsExternalDataPart"
 
     return d
@@ -71,23 +71,15 @@ def getDSInfo():
     print("after org info");
 
     data = open("./MetaDataJson.json", "r").read()
-    #base64encodeofmetaJSON = base64.encodestring(base64.b64encode(bytes(data, 'utf-8')))
-
     base64encodeofmetaJSON = base64.b64encode(bytes(data, 'utf-8'))
-    #print (base64encodeofmetaJSON)
-
-    print("step 1")
-
     base64encodeofmetaJSON = base64encodeofmetaJSON.decode('utf-8')
-
-    #base64encodeofmetaJSON = base64encodeofmetaJSON.decode('utf-8')
 
     print("step 1.1")
 
     rec = {}
     rec["Format"] = "Csv"
-    rec["EdgemartAlias"] = "isvaadailysum"
-    rec["Operation"] = "Overwrite"
+    rec["EdgemartAlias"] = "aatest"
+    rec["Operation"] = "overwrite"
     rec["Action"] = "none"
     rec["MetadataJson"] = base64encodeofmetaJSON
 
@@ -97,10 +89,35 @@ def getDSInfo():
     print("step 2")
 
     res = json.dumps(sf_api_call(orginfo,
-        orginfo['extdataeurl'], '', 'post', q), indent=2)
+        orginfo['extdataurl'], '', 'post', q), indent=2)
     
     print(json.dumps(res))
     ed = json.loads(res)
     print (ed['id'])
+
+    data = open("./data.csv", "r").read()
+    base64encodeofds = base64.b64encode(bytes(data, 'utf-8'))
+    base64encodeofds = base64encodeofds.decode('utf-8')
+
+    rec = {}
+    rec["DataFile"] = base64encodeofds
+    rec["InsightsExternalDataId"] = ed['id']
+    rec["PartNumber"] = 1
+
+    q = json.dumps(rec)
+
+    res = json.dumps(sf_api_call(orginfo, orginfo['extdataparturl'], '', 'post', q), indent=2)
+    print ("Part response")
+    print (res)
+
+    extdatauploadurl = orginfo['extdataurl'] + "/" + ed['id']
+    rec = {}
+    rec["Action"] = "Process"
+    q = json.dumps(rec)
+
+    res = json.dumps(sf_api_call(orginfo, extdatauploadurl, '', 'patch', q), indent=2)
+    print ("Final response")
+    print (res)
+
 
 getDSInfo()

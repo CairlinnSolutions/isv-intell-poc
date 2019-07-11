@@ -9,13 +9,13 @@
 {
 "connector": "CSVConnector",
 "description": "",
-"fullyQualifiedName": "isvaadailysum",
-"label": "isvaadailysum",
-"name": "isvaadailysum",
+"fullyQualifiedName": "aatest",
+"label": "aatest",
+"name": "aatest",
 "fields": [
 {
 "description": "",
-"fullyQualifiedName": "isvaadailysum.orgid",
+"fullyQualifiedName": "aatest.orgid",
 "label": "orgid",
 "name": "orgid",
 "isSystemField": false,
@@ -25,7 +25,7 @@
 },
 {
 "description": "usercount",
-"fullyQualifiedName": "isvaadailysum.usercount",
+"fullyQualifiedName": "aatest.usercount",
 "label": "usercount",
 "name": "usercount",
 "isSystemField": false,
@@ -39,7 +39,7 @@
 ,
 {
 "description": "sessioncount",
-"fullyQualifiedName": "isvaadailysum.sessioncount",
+"fullyQualifiedName": "aatest.sessioncount",
 "label": "sessioncount",
 "name": "sessioncount",
 "isSystemField": false,
@@ -52,7 +52,7 @@
 },
 {
 "description": "usercount",
-"fullyQualifiedName": "isvaadailysum.operationssum",
+"fullyQualifiedName": "aatest.operationssum",
 "label": "operationssum",
 "name": "operationssum",
 "isSystemField": false,
@@ -65,7 +65,7 @@
 },
 {
 "description": "urlcount",
-"fullyQualifiedName": "isvaadailysum.urlcount",
+"fullyQualifiedName": "aatest.urlcount",
 "label": "urlcount",
 "name": "urlcount",
 "isSystemField": false,
@@ -79,7 +79,7 @@
 ,
 {
 "description": "customentitycount",
-"fullyQualifiedName": "isvaadailysum.customentitycount",
+"fullyQualifiedName": "aatest.customentitycount",
 "label": "customentitycount",
 "name": "customentitycount",
 "isSystemField": false,
@@ -92,7 +92,7 @@
 },
 {
     "description": "",
-    "fullyQualifiedName": "isvaadailysum.App",
+    "fullyQualifiedName": "aatest.App",
     "label": "App",
     "name": "App",
     "isSystemField": false,
@@ -102,7 +102,7 @@
 },
 {
     "description": "dtLog",
-    "fullyQualifiedName": "isvaadailysum.dtLog",
+    "fullyQualifiedName": "aatest.dtLog",
     "label": "dtLog",
     "name": "dtLog",
     "isSystemField": false,
@@ -113,7 +113,7 @@
 },
 {
     "description": "extid",
-    "fullyQualifiedName": "isvaadailysum.extid",
+    "fullyQualifiedName": "aatest.extid",
     "label": "extid",
     "name": "extid",
     "isSystemField": false,
