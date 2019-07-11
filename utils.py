@@ -20,13 +20,13 @@ def processaa(url, deltadays):
     today = date.today()
     aday = today - timedelta(days=deltadays)
 
-    orgdata = getSFToken()
+    orginfo = getSFToken()
     print("after org info");
 
-    rec = requestAA(orgdata, aday)
+    rec = requestAA(orginfo, aday)
     print("after aa record response");
 
-    createsum(orgdata, aday, rec)
+    createsum(orginfo, aday, rec)
 
     return 1
 
