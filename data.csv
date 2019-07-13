@@ -1,10 +1,4 @@
-orgid,sessioncount,usercount,operationssum,urlcount,customentitycount,App,dtLog,extid
-00D0Y000000LeAK,1000,90,33499,1,1,CaseTimer,2019-06-29,1
-00D1U000000FDFU,2,1,9,1,1,CaseTimer,2019-06-29,2
-00D400000007WEd,6,4,898,1,1,CaseTimer,2019-06-29,3
-00D41000000dD7P,8,6,282,2,1,CaseTimer,2019-06-29,4
-00D60000000KUiO,5,3,291,1,1,CaseTimer,2019-06-29,5
-00Df4000004k0v9,14,9,1872,2,1,CaseTimer,2019-06-29,6
-00Df4000004lnLi,1,1,2,1,1,CaseTimer,2019-06-29,7
-00Di0000000bRXp,2,1,4,1,1,CaseTimer,2019-06-29,28
-00Dj0000001rtbr,6,5,238,1,1,CaseTimer,2019-06-29,12
+orgid,sessioncount,usercount,operationssum,urlcount,customentitycount,App,dtLog
+00D0Y000000LeAK,1000,90,33499,1,1,CaseTimer,2019-06-29
+00D1U000000FDFU,2,1,9,1,1,CaseTimer,2019-06-29
+00D400000007WEd,6,4,898,1,1,CaseTimer,2019-06-29

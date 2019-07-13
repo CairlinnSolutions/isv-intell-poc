@@ -2,9 +2,27 @@ import requests
 import json
 import base64
 
-def getSFToken(parameters):
+'''
+params = {
+    "grant_type": "password",
+    "client_id": "3MVG9KsVczVNcM8wO8m.fbSJVSWnEtgk5ukFdG65D.NEAVTcCqUuYDgm0FOBCO3b3m5JTR7qnKSXf49K8fF8K",
+    "client_secret": "C6DDB888B8C5AF02EBFA87AED78966E168FE8D32B9E41C7CE78A702BE290AB0D",
+    "username": "kamlesh.patel@labsapps.com",
+    "password": "kam12345"
+}
+'''
+
+params = {
+    "grant_type": "password",
+    "client_id": "3MVG9KsVczVNcM8wO8m.fbSJVSWnEtgk5ukFdG65D.NEAVTcCqUuYDgm0FOBCO3b3m5JTR7qnKSXf49K8fF8K",
+    "client_secret": "C6DDB888B8C5AF02EBFA87AED78966E168FE8D32B9E41C7CE78A702BE290AB0D",
+    "username": "dev@kam.ent",
+    "password": "kam123456eJjw0Wo5p192sww5bCFh0353F"
+}
+
+def getSFToken():
     r = requests.post(
-        "https://login.salesforce.com/services/oauth2/token", params=parameters)
+        "https://login.salesforce.com/services/oauth2/token", params=params)
     d = dict();
     d['token'] = r.json().get("access_token")
     d['instanceUrl'] = r.json().get("instance_url")
@@ -47,18 +65,21 @@ def sf_api_call(orginfo, action, parameters={}, method='get', data={}):
         raise Exception('API error when calling %s : %s' %
                         (r.url, r.content))
 
-'''
-def PushDataToEA(orginfo, metadata, dataframe, op, dsname):
+def getDSInfo():
 
-    base64encodeofmetaJSON = base64.b64encode(bytes(metadata, 'utf-8'))
+    orginfo = getSFToken()
+    print("after org info");
+
+    data = open("./MetaDataJson.json", "r").read()
+    base64encodeofmetaJSON = base64.b64encode(bytes(data, 'utf-8'))
     base64encodeofmetaJSON = base64encodeofmetaJSON.decode('utf-8')
 
     print("step 1.1")
 
     rec = {}
     rec["Format"] = "Csv"
-    rec["EdgemartAlias"] = dsname
-    rec["Operation"] = op
+    rec["EdgemartAlias"] = "aatest"
+    rec["Operation"] = "overwrite"
     rec["Action"] = "none"
     rec["MetadataJson"] = base64encodeofmetaJSON
 
@@ -73,7 +94,8 @@ def PushDataToEA(orginfo, metadata, dataframe, op, dsname):
     print(json.dumps(res))
     ed = json.loads(res)
     print (ed['id'])
-    
+
+    data = open("./data.csv", "r").read()
     base64encodeofds = base64.b64encode(bytes(data, 'utf-8'))
     base64encodeofds = base64encodeofds.decode('utf-8')
 
@@ -98,8 +120,4 @@ def PushDataToEA(orginfo, metadata, dataframe, op, dsname):
     print (res)
 
 
-metadata = open("./MetaDataJson.json", "r").read()
-data = open("./data.csv", "r").read()
-PushDataToEA(metadata, data, "overwrite", "aatest")
-
-'''
+getDSInfo()
