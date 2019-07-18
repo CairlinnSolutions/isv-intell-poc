@@ -33,11 +33,15 @@ dailyfolderpath = "daily"
 dailysumfolderpath = "dailysum"
 
 def processaa(deltadays):
-
     
-    print("before token");
+    print("Starting processaa");
     today = date.today()
     aday = today - timedelta(days=deltadays)
+
+    #get EA metadata
+    url = 'https://isvaa.s3-us-west-1.amazonaws.com/config/MetaDataJson.json'
+    r = requests.get(url, allow_redirects=False)
+    metadata = r.text
 
     pboorginfo = getSFToken(pboorg)
     print("after pboorginfo info");
@@ -46,22 +50,14 @@ def processaa(deltadays):
     print("after aa record response");
 
     sumdf = createsum(pboorginfo, aday, rec)
+    print("after createsum");
     
-
-    #Testing only
-    '''
-    sumdf = pd.read_csv("./data.csv")
-    sumdf['extid'] = sumdf['App'] + sumdf['dtLog'] + sumdf['dtLog']
-    print(sumdf['extid'].head())
-    '''
-
     eaorginfo = getSFToken(eaorg)
     print("after eaorginfo");
-    metadata = open("./MetaDataJson.json", "r").read()
     
-    PushDataToEA(eaorginfo, metadata, sumdf, "overwrite", "aatest")
+    PushDataToEA(eaorginfo, metadata, sumdf, "overwrite", "aads")
 
-    return 1
+    return 
 
 def createsum(orgdata, aday, rec):
     s = requests.get(rec['DownloadUrl']).content
@@ -92,16 +88,13 @@ def createsum(orgdata, aday, rec):
                             'operation_count_sum': 'operationssum',
                             'url_nunique': 'urlcount',
                             'custom_entity_nunique': 'customentitycount',
-                            'org_info_': 'orginfo'}, inplace=True)
+                            'organization_id_': 'orgid'}, inplace=True)
 
     orgdata = orgdata.reset_index(drop=True)
 
     orgdata['App'] = 'CaseTimer'
     orgdata['dtLog'] = aday.isoformat()
     orgdata['extid'] = orgdata['orgid'] + orgdata['App'] + orgdata['dtLog'] 
-
-    orgdata.to_csv('./schema_sample.csv', index=None,
-                header=True)  # Don't forget to add '.csv' at the end of the path
 
     print(orgdata.head())
 
@@ -131,10 +124,8 @@ def requestAA(orginfo, aday):
     }
     # convert into JSON:
     jsonbody = json.dumps(newreq)
-    print(jsonbody)
     postres = json.dumps(sf_api_call(orginfo,
         '/services/data/v46.0/sobjects/AppAnalyticsQueryRequest/', '', 'post', jsonbody), indent=2)
-    print(postres)
     postres = json.loads(postres)
 
     time.sleep(90)
@@ -145,6 +136,5 @@ def requestAA(orginfo, aday):
 
     res = json.loads(getres)
     return res
-
 
 processaa(1)

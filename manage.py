@@ -4,17 +4,17 @@ import os
 import redis
 from rq import Queue
 from worker import conn
-from utils import processaa
+from aamain import processaa
 
 q = Queue(connection=conn)
 
 manager = Manager(app)
 
 @manager.command
-def hello():
-    result = q.enqueue(processaa, 'http://heroku.com')
-    print(result)
-    print("hello")
+def queueprocessaa():
+    print("queueprocessaa called")
+    result = q.enqueue(processaa)
+    print("queueprocessaa complete")
 
 
 if __name__ == "__main__":
