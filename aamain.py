@@ -110,7 +110,7 @@ def createsum(orgdata, aday, rec):
 
     csv_buffer = StringIO()
     orgdata.to_csv(csv_buffer, index=False)
-    s3.Object(bucket, dailysumfilepath).put(Body=csv_buffer.getvalue())
+    #s3.Object(bucket, dailysumfilepath).put(Body=csv_buffer.getvalue())
 
     return orgdata
 
