@@ -18,9 +18,6 @@ def getSFToken(parameters):
 
 def sf_api_call(orginfo, action, parameters={}, method='get', data={}):
 
-    print(orginfo['instanceUrl']+action)
-    print("Correct?")
-
     headers = {
         'Content-type': 'application/json',
         'Accept-Encoding': 'gzip',
@@ -30,8 +27,6 @@ def sf_api_call(orginfo, action, parameters={}, method='get', data={}):
         r = requests.request(method, orginfo['instanceUrl']+action,
                              headers=headers, params=parameters, timeout=30)
     elif method in ['post', 'patch']:
-        print('instance_url+action= %s' % (orginfo['instanceUrl']+action))
-        #print('data= %s' % (data))
         r = requests.request(method, orginfo['instanceUrl']+action,
                              headers=headers, data=data, params=parameters, timeout=10)
     else:

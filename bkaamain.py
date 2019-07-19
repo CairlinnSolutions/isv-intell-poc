@@ -7,7 +7,6 @@ from datetime import date, timedelta
 import pandas as pd
 import time
 import io
-import os
 import boto3
 from io import StringIO
 from sf import getSFToken, sf_api_call
@@ -15,28 +14,24 @@ from ea import PushDataToEA, DoesDatasetExist
 
 pboorg = {
     "grant_type": "password",
-    "client_id": os.environ['pboclientid'],
-    "client_secret": os.environ['pboclientsecret'],
-    "username": os.environ['pbousername'],
-    "password": os.environ['pbopasswd']
+    "client_id": "3MVG9KsVczVNcM8wO8m.fbSJVSWnEtgk5ukFdG65D.NEAVTcCqUuYDgm0FOBCO3b3m5JTR7qnKSXf49K8fF8K",
+    "client_secret": "C6DDB888B8C5AF02EBFA87AED78966E168FE8D32B9E41C7CE78A702BE290AB0D",
+    "username": "kamlesh.patel@labsapps.com",
+    "password": "kam12345"
 }
 
 eaorg = {
     "grant_type": "password",
-    "client_id": os.environ['eaclientid'],
-    "client_secret": os.environ['eaclientsecret'],
-    "username": os.environ['eausername'],
-    "password": os.environ['eapasswd']
+    "username": "dev@kam.ent",
+    "password": "kam123456eJjw0Wo5p192sww5bCFh0353F"
 }
-
-dsname = os.environ['dsname']
-metadataurl = os.environ['metadatajsonurl']
-awskey = os.environ['awskey']
-awssecret = os.environ['awssecret']
 
 bucket = "isvaa"
 dailyfolderpath = "daily"
 dailysumfolderpath = "dailysum"
+
+dsname = "aads" 
+metadataurl = 'https://isvaa.s3-us-west-1.amazonaws.com/config/MetaDataJson.json'
 
 def processaa(deltadays):
     
@@ -77,8 +72,8 @@ def createsum(orgdata, aday, rec):
 
     dailysumfilepath = dailysumfolderpath + '/' + aday.isoformat()  + '.csv'
 
-    s3 = boto3.resource('s3', aws_access_key_id=awskey,
-                        aws_secret_access_key=awssecret
+    s3 = boto3.resource('s3', aws_access_key_id='AKIAITVDBSKAAQTDB3NQ',
+                        aws_secret_access_key='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'
                         )
 
     orgdata = data.groupby('organization_id', as_index=False).agg(
@@ -147,6 +142,4 @@ def requestAA(orginfo, aday):
     return res
 
 processaa(1)
-
-
 

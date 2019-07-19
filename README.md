@@ -6,8 +6,8 @@ heroku addons:create heroku-redis:hobby-dev -a aabatch
 heroku local:run python manage.py queueprocessaa
 
 git add .
-$ git commit -am "make it better"
-$ git push heroku master
+git commit -am "make it better"
+git push heroku master
 
 # Flask Heroku Scheduler
 
