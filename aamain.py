@@ -146,7 +146,7 @@ def requestAA(orginfo, aday):
     res = json.loads(getres)
     return res
 
-processaa(1)
+#processaa(1)
 
 
 

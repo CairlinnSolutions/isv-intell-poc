@@ -13,7 +13,7 @@ manager = Manager(app)
 @manager.command
 def queueprocessaa():
     print("queueprocessaa called")
-    result = q.enqueue(processaa)
+    result = q.enqueue(processaa, 2)
     print("queueprocessaa complete")
 
 
