@@ -11,9 +11,9 @@ q = Queue(connection=conn)
 manager = Manager(app)
 
 @manager.command
-def queueprocessaa(delta):
+def queueprocessaa():
     print("queueprocessaa called")
-    result = q.enqueue(processaa, delta)
+    result = q.enqueue(processaa, 1)
     print("queueprocessaa complete")
 
 
