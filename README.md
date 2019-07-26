@@ -3,6 +3,7 @@ source env/bin/activate
 
 heroku addons:create heroku-redis:hobby-dev -a aabatch
 
+heroku local:run python worker.py
 heroku local:run python manage.py queueprocessaa
 
 git add .

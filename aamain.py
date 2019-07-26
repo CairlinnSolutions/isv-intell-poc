@@ -33,6 +33,8 @@ dsname = os.environ['dsname']
 metadataurl = os.environ['metadatajsonurl']
 awskey = os.environ['awskey']
 awssecret = os.environ['awssecret']
+sleepseconds=int(os.environ['sleepseconds'])
+packages=os.environ['packages']
 
 bucket = "isvaa"
 dailyfolderpath = "daily"
@@ -59,13 +61,14 @@ def processaa(deltadays):
     print("after createsum");
     
     eaorginfo = getSFToken(eaorg)
-    print("after pboorginfo info");
+    print("after eaorginfo info");
     dsexist = DoesDatasetExist(eaorginfo, dsname)
     op = "overwrite"
     if(dsexist): 
         op = "upsert" 
     
     PushDataToEA(eaorginfo, metadata, sumdf, op, dsname)
+    print("data pushed to EA");
 
     return 
 
@@ -126,7 +129,7 @@ def requestAA(orginfo, aday):
     print(aday.isoformat())  # Print the string
 
     newreq = {
-        'PackageIds': '0331U000000EHq2',
+        'PackageIds': packages,
         'DataType': 'CustomObjectUsageLog',
         'StartTime': adaystart,
         'EndTime': adayend
@@ -137,7 +140,7 @@ def requestAA(orginfo, aday):
         '/services/data/v46.0/sobjects/AppAnalyticsQueryRequest/', '', 'post', jsonbody), indent=2)
     postres = json.loads(postres)
 
-    time.sleep(90)
+    time.sleep(sleepseconds)
 
     getres = json.dumps(sf_api_call(orginfo,
         '/services/data/v46.0/sobjects/AppAnalyticsQueryRequest/%s' % (postres['id']), '', 'get', {}), indent=2)
