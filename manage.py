@@ -1,5 +1,5 @@
 from flask_script import Manager
-from myapp import app
+from webapp import app
 import os
 import redis
 from rq import Queue
