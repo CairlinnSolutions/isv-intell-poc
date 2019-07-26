@@ -18,3 +18,8 @@ pandas==0.24.2
 python-dateutil==2.8.0
 redis==3.2.1
 s3transfer==0.2.1
+authlib
+python-dotenv
+python-jose-cryptodome
+flask-cors
+six
