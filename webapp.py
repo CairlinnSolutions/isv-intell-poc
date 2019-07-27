@@ -129,11 +129,14 @@ def public():
     return jsonify(message=response)
 
 # This needs authentication
-@APP.route("/api/dojob")
+@APP.route("/api/dojob", methods=['POST'])
 @cross_origin(headers=["Content-Type", "Authorization"])
 @requires_auth
-def private():
-    response = "Hello from a private endpoint! You need to be authenticated to see this."
+def dojob():
+    print ("dojob called")
+    content = request.json
+    print (content)
+    response = "hello"
     return jsonify(message=response)
 
 # This does not need authentication

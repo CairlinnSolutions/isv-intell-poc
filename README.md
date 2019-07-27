@@ -6,6 +6,8 @@ heroku addons:create heroku-redis:hobby-dev -a aabatch
 Make sure you do this, if you get SSL cert error...
 sudo /Applications/Python\ 3.6/Install\ Certificates.command
 
+heroku local web
+
 https://manage.auth0.com/dashboard/us/spring-hall-6290/apis/5d3b7371262229067e714eed/settings
 
 curl --request POST \
@@ -13,8 +15,9 @@ curl --request POST \
   --header 'content-type: application/json' \
   --data '{"client_id":"NNUH1qFrf5RJ4eF8V8lDUsGohSnX2Icp","client_secret":"PlkRqjuXgWHDQq6bVD11gQlEpyEhITY6WiJJutYwnVQjR47GMyjxpKR2ASzUQhbO","audience":"https://aabatch.herokuapp.com/","grant_type":"client_credentials"}'
 
+0.0.0.0:5000
 curl --request GET \
---url http://0.0.0.0:5000/api/dojob \
+--url https://d88f8cae.ngrok.io/api/dojob \
   --header 'authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik5VRTRORVl4TmpGR04wTTVNamMxTXpsRFF6WkRNMEkzUWpZMFJqUTBNVU5HUlRsQk16VXpSQSJ9.eyJpc3MiOiJodHRwczovL3NwcmluZy1oYWxsLTYyOTAuYXV0aDAuY29tLyIsInN1YiI6Ik5OVUgxcUZyZjVSSjRlRjhWOGxEVXNHb2hTblgySWNwQGNsaWVudHMiLCJhdWQiOiJodHRwczovL2FhYmF0Y2guaGVyb2t1YXBwLmNvbS8iLCJpYXQiOjE1NjQxODAzNTYsImV4cCI6MTU2NDI2Njc1NiwiYXpwIjoiTk5VSDFxRnJmNVJKNGVGOFY4bERVc0dvaFNuWDJJY3AiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.fuYpBKfXBMtVQRnt4F8xUQJcO66u7Srb-zihqFmb4x7Pjf02pvyuX-Y2peICk7Nv8tM8P-qssMSrkRjKH6x0HjExJyCp6ZNElhY_O1IZmLbzAek3eZ8YweUV455dpa5cuP_JIULwmHkfrd6e4kgHPr61gETD70qMII61zSBehl6FAHB-Uu9l9GyHgIkusza7UOFd0sYwOU8HQVQ5YenoUeAxC2rs5BbDUfSHRcC6cqKTwse76ZlEp2u1UhtPKH3HEPJgKIlKAkeXEvWu0RO-chLlpsbVUOL_PHBhcy0zj953aDhO0oK8NPmwe3nTgZS8AGeKXGFp-SA58vsSreBtIw'
 
 heroku local:run python worker.py
