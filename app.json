@@ -38,15 +38,18 @@
         },
         "awskey": {
           "description": "You can leave blank, used for storing raw files to S3",
-          "value": ""
+          "value": "",
+          "required": false
         },
         "awssecret": {
             "description": "You can leave blank, used for storing raw files to S3",
-            "value": ""
+            "value": "",
+            "required": false
           },
         "sleepseconds": {
           "description": "PBO org client secret",
-          "value": 90
+          "value": 90,
+          "required": false
         },
         "packages": {
           "description": "PBO org client secret"
