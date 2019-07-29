@@ -7,39 +7,39 @@
     "env": {
         "pboclientid": {
           "description": "PBO org client id",
-          "value":"tbd"
+          "value":"ToBeDone"
         },
         "pboclientsecret": {
           "description": "PBO org client secret",
-          "value":"tbd"
+          "value":"ToBeDone"
         },
         "pbousername": {
           "description": "PBO org user name",
-          "value":"tbd"
+          "value":"ToBeDone"
         },
         "pbopasswd": {
           "description": "PBO org password",
-          "value":"tbd"
+          "value":"ToBeDone"
         },
         "eaclientid": {
             "description": "EA org client id",
-            "value":"tbd"
+            "value":"ToBeDone"
           },
           "eaclientsecret": {
             "description": "EA org client secret",
-            "value":"tbd"
+            "value":"ToBeDone"
           },
           "eausername": {
             "description": "EA org user name",
-            "value":"tbd"
+            "value":"ToBeDone"
           },
           "eapasswd": {
             "description": "EA org password",
-            "value":"tbd"
+            "value":"ToBeDone"
           },
         "dsname": {
           "description": "EA Data set name",
-          "value":"tbd"
+          "value":"ToBeDone"
         },
         "metadatajsonurl": {
           "description": "metadatajsonurl",
@@ -47,12 +47,12 @@
         },
         "awskey": {
           "description": "You can leave blank, used for storing raw files to S3",
-          "value": "tbd",
+          "value": "ToBeDone",
           "required": false
         },
         "awssecret": {
             "description": "You can leave blank, used for storing raw files to S3",
-            "value": "tbd",
+            "value": "ToBeDone",
             "required": false
           },
         "sleepseconds": {
@@ -61,19 +61,19 @@
         },
         "packages": {
           "description": "comma seperated package ids for this partner app",
-          "value":"tbd"
+          "value":"ToBeDone"
         },
         "REDIS_URL": {
           "description": "Get it from Redis Add-on of your app",
-          "value":"tbd"
+          "value":"ToBeDone"
         },
         "AUTH0_DOMAIN": {
           "description": "AUTH0 domain, get it from AUTH0 Add-on of your app",
-          "value":"tbd"
+          "value":"ToBeDone"
         },
         "API_AUDIENCE": {
           "description": "AUTH0 domain, get it from AUTH0 Add-on of your app",
-          "value":"tbd"
+          "value":"ToBeDone"
         }   
       }    
   }
