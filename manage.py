@@ -11,9 +11,9 @@ q = Queue(connection=conn)
 manager = Manager(app)
 
 @manager.command
-def queuestartJob():
+def queuestartJob(appname, packages):
     print("queuestartJob called")
-    result = q.enqueue(startjobForYesterday, 'CaseTimer', '0331U000000EHq2')
+    result = q.enqueue(startjobForYesterday, appname, packages)
     print("queuestartJob complete")
 
 if __name__ == "__main__":
