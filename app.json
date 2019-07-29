@@ -1,0 +1,7 @@
+{
+    "name": "App Analytics data processing app",
+    "description": "App Analytics data processing app",
+    "repository": "https://github.com/kamipatel/aabatch",
+    "logo": "aalogo.png",
+    "keywords": ["salesforce", "App Analytics", "Python"]
+  }
