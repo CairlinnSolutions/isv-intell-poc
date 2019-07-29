@@ -13,6 +13,8 @@ manager = Manager(APP)
 @manager.command
 def queuestartJob(appname, packages):
     print("queuestartJob called")
+    print(appname)
+    print(packages)
     result = q.enqueue(startjobForYesterday, appname, packages)
     print("queuestartJob complete")
 
