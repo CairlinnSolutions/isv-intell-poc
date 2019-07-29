@@ -3,6 +3,9 @@ source env/bin/activate
 
 heroku addons:create heroku-redis:hobby-dev -a aabatch
 
+heroku redis:cli
+$ flushall
+
 Make sure you do this, if you get SSL cert error...
 sudo /Applications/Python\ 3.6/Install\ Certificates.command
 

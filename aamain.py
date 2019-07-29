@@ -2,7 +2,6 @@ import requests
 import json
 from datetime import date, timedelta
 import datetime
-from datetime import date, timedelta
 
 import pandas as pd
 import time
@@ -40,11 +39,15 @@ bucket = "isvaa"
 dailyfolderpath = "daily"
 dailysumfolderpath = "dailysum"
 
-def processaa(deltadays):
-    
-    print("Starting processaa");
+def startjobForYesterday(appname, packages):
     today = date.today()
-    aday = today - timedelta(days=deltadays)
+    aday = today - timedelta(days=1)
+    whichdate = aday.isoformat()
+    startjobByDate(appname, packages, whichdate)
+
+def startjobByDate(appname, packages, whichdate):
+    
+    print("startjobForADate");
 
     #get EA metadata
     url = metadataurl
@@ -54,10 +57,10 @@ def processaa(deltadays):
     pboorginfo = getSFToken(pboorg)
     print("after pboorginfo info");
 
-    rec = requestAA(pboorginfo, aday)
+    rec = requestAAByDate(pboorginfo, packages, whichdate)
     print("after aa record response");
 
-    sumdf = createsum(pboorginfo, aday, rec)
+    sumdf = createsum(pboorginfo, appname, whichdate, rec)
     print("after createsum");
     
     eaorginfo = getSFToken(eaorg)
@@ -72,13 +75,44 @@ def processaa(deltadays):
 
     return 
 
-def createsum(orgdata, aday, rec):
+def requestAAByDate(orginfo, packages, aday):
+
+    adayfilename = aday + '.csv'
+    adaystart = aday + 'T00:00:00'  # Convert to ISO 8601 string
+    adayend = aday + 'T23:59:59'  # Convert to ISO 8601 string
+
+    dailyfilepath = dailyfolderpath + '/' + adayfilename
+    dailysumfilepath = dailysumfolderpath + '/' + adayfilename
+
+    newreq = {
+        'PackageIds': packages,
+        'DataType': 'CustomObjectUsageLog',
+        'StartTime': adaystart,
+        'EndTime': adayend
+    }
+    # convert into JSON:
+    jsonbody = json.dumps(newreq)
+    postres = json.dumps(sf_api_call(orginfo,
+        '/services/data/v46.0/sobjects/AppAnalyticsQueryRequest/', '', 'post', jsonbody), indent=2)
+    postres = json.loads(postres)
+
+    time.sleep(sleepseconds)
+
+    getres = json.dumps(sf_api_call(orginfo,
+        '/services/data/v46.0/sobjects/AppAnalyticsQueryRequest/%s' % (postres['id']), '', 'get', {}), indent=2)
+    print(getres)
+
+    res = json.loads(getres)
+    return res
+
+
+def createsum(orgdata, appname, aday, rec):
     s = requests.get(rec['DownloadUrl']).content
     data = pd.read_csv(io.StringIO(s.decode('utf-8')))
 
     print(data.head())
 
-    dailysumfilepath = dailysumfolderpath + '/' + aday.isoformat()  + '.csv'
+    dailysumfilepath = dailysumfolderpath + '/' + aday  + '.csv'
 
     s3 = boto3.resource('s3', aws_access_key_id=awskey,
                         aws_secret_access_key=awssecret
@@ -105,8 +139,8 @@ def createsum(orgdata, aday, rec):
 
     orgdata = orgdata.reset_index(drop=True)
 
-    orgdata['App'] = 'CaseTimer'
-    orgdata['dtLog'] = aday.isoformat()
+    orgdata['App'] = appname
+    orgdata['dtLog'] = aday
     orgdata['extid'] = orgdata['orgid'] + orgdata['App'] + orgdata['dtLog'] 
 
     print(orgdata.head())
@@ -116,40 +150,6 @@ def createsum(orgdata, aday, rec):
     #s3.Object(bucket, dailysumfilepath).put(Body=csv_buffer.getvalue())
 
     return orgdata
-
-def requestAA(orginfo, aday):
-
-    adayfilename = aday.isoformat() + '.csv'
-    adaystart = aday.isoformat() + 'T00:00:00'  # Convert to ISO 8601 string
-    adayend = aday.isoformat() + 'T23:59:59'  # Convert to ISO 8601 string
-
-    dailyfilepath = dailyfolderpath + '/' + adayfilename
-    dailysumfilepath = dailysumfolderpath + '/' + adayfilename
-
-    print(aday.isoformat())  # Print the string
-
-    newreq = {
-        'PackageIds': packages,
-        'DataType': 'CustomObjectUsageLog',
-        'StartTime': adaystart,
-        'EndTime': adayend
-    }
-    # convert into JSON:
-    jsonbody = json.dumps(newreq)
-    postres = json.dumps(sf_api_call(orginfo,
-        '/services/data/v46.0/sobjects/AppAnalyticsQueryRequest/', '', 'post', jsonbody), indent=2)
-    postres = json.loads(postres)
-
-    time.sleep(sleepseconds)
-
-    getres = json.dumps(sf_api_call(orginfo,
-        '/services/data/v46.0/sobjects/AppAnalyticsQueryRequest/%s' % (postres['id']), '', 'get', {}), indent=2)
-    print(getres)
-
-    res = json.loads(getres)
-    return res
-
-#processaa(1)
 
 
 

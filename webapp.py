@@ -8,6 +8,13 @@ from flask import Flask, request, jsonify, _request_ctx_stack
 from flask_cors import cross_origin
 from jose import jwt
 import sys
+from datetime import date, timedelta
+from aamain import startjobByDate 
+import redis
+from rq import Queue
+from worker import conn
+
+q = Queue(connection=conn)
 
 AUTH0_DOMAIN = 'spring-hall-6290.auth0.com'
 API_AUDIENCE = 'https://aabatch.herokuapp.com/'
@@ -135,15 +142,17 @@ def public():
 @requires_auth
 def dojob():
     print ("dojob called")
-    sys.stdout.flush()
     content = request.json
     print (content)
-    response = "hello"
-    return jsonify(message=response)
+    sys.stdout.flush()    
+
+    result = q.enqueue(startjobByDate, content['AppName'], content['packages'], content['whichDate'])
+
+    return jsonify(message="STARTED")
 
 # This does not need authentication
 @APP.route('/')
 def index():
-    return 'TBD'
+    return 'App Analytics APIs'
 
 
