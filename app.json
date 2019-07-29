@@ -6,31 +6,40 @@
     "keywords": ["salesforce", "App Analytics", "Python"],
     "env": {
         "pboclientid": {
-          "description": "PBO org client id"
+          "description": "PBO org client id",
+          "value":"tbd"
         },
         "pboclientsecret": {
-          "description": "PBO org client secret"
+          "description": "PBO org client secret",
+          "value":"tbd"
         },
         "pbousername": {
-          "description": "PBO org user name"
+          "description": "PBO org user name",
+          "value":"tbd"
         },
         "pbopasswd": {
-          "description": "PBO org password"
+          "description": "PBO org password",
+          "value":"tbd"
         },
         "eaclientid": {
-            "description": "EA org client id"
+            "description": "EA org client id",
+            "value":"tbd"
           },
           "eaclientsecret": {
-            "description": "EA org client secret"
+            "description": "EA org client secret",
+            "value":"tbd"
           },
           "eausername": {
-            "description": "EA org user name"
+            "description": "EA org user name",
+            "value":"tbd"
           },
           "eapasswd": {
-            "description": "EA org password"
+            "description": "EA org password",
+            "value":"tbd"
           },
         "dsname": {
-          "description": "EA Data set name"
+          "description": "EA Data set name",
+          "value":"tbd"
         },
         "metadatajsonurl": {
           "description": "metadatajsonurl",
@@ -38,33 +47,33 @@
         },
         "awskey": {
           "description": "You can leave blank, used for storing raw files to S3",
-          "value": "",
+          "value": "tbd",
           "required": false
         },
         "awssecret": {
             "description": "You can leave blank, used for storing raw files to S3",
-            "value": "",
+            "value": "tbd",
             "required": false
           },
         "sleepseconds": {
           "description": "PBO org client secret",
-          "value": 90,
-          "required": false
+          "value": 90
         },
         "packages": {
-          "description": "comma seperated package ids for this partner app"
+          "description": "comma seperated package ids for this partner app",
+          "value":"tbd"
         },
         "REDIS_URL": {
           "description": "Get it from Redis Add-on of your app",
-          "required": false
+          "value":"tbd"
         },
         "AUTH0_DOMAIN": {
           "description": "AUTH0 domain, get it from AUTH0 Add-on of your app",
-          "required": false
+          "value":"tbd"
         },
         "API_AUDIENCE": {
           "description": "AUTH0 domain, get it from AUTH0 Add-on of your app",
-          "required": false
+          "value":"tbd"
         }   
       }    
   }
