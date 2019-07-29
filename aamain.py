@@ -96,7 +96,9 @@ def requestAAByDate(orginfo, packages, aday):
         '/services/data/v46.0/sobjects/AppAnalyticsQueryRequest/', '', 'post', jsonbody), indent=2)
     postres = json.loads(postres)
 
+    print("beforesleep")
     time.sleep(sleepseconds)
+    print("aftersleep")
 
     getres = json.dumps(sf_api_call(orginfo,
         '/services/data/v46.0/sobjects/AppAnalyticsQueryRequest/%s' % (postres['id']), '', 'get', {}), indent=2)
