@@ -1,5 +1,5 @@
 from flask_script import Manager
-from webapp import app
+from webapp import APP
 import os
 import redis
 from rq import Queue
@@ -8,7 +8,7 @@ from aamain import startjobForYesterday
 
 q = Queue(connection=conn)
 
-manager = Manager(app)
+manager = Manager(APP)
 
 @manager.command
 def queuestartJob(appname, packages):
