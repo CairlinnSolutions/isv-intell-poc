@@ -55,13 +55,16 @@
           "description": "PBO org client secret"
         },
         "REDIS_URL": {
-          "description": "Get it from Redis Add-on of your app"
+          "description": "Get it from Redis Add-on of your app",
+          "required": false
         },
         "AUTH0_DOMAIN": {
-          "description": "AUTH0 domain, get it from AUTH0 Add-on of your app"
+          "description": "AUTH0 domain, get it from AUTH0 Add-on of your app",
+          "required": false
         },
         "API_AUDIENCE": {
-          "description": "AUTH0 domain, get it from AUTH0 Add-on of your app"
+          "description": "AUTH0 domain, get it from AUTH0 Add-on of your app",
+          "required": false
         }   
       }    
   }
