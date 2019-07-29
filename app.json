@@ -52,7 +52,7 @@
           "required": false
         },
         "packages": {
-          "description": "PBO org client secret"
+          "description": "comma seperated package ids for this partner app"
         },
         "REDIS_URL": {
           "description": "Get it from Redis Add-on of your app",
