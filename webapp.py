@@ -13,11 +13,12 @@ from aamain import startjobByDate
 import redis
 from rq import Queue
 from worker import conn
+import os
 
 q = Queue(connection=conn)
 
-AUTH0_DOMAIN = 'spring-hall-6290.auth0.com'
-API_AUDIENCE = 'https://aabatch.herokuapp.com/'
+AUTH0_DOMAIN = os.environ['AUTH0_DOMAIN']
+API_AUDIENCE = os.environ['API_AUDIENCE']
 ALGORITHMS = ["RS256"]
 
 APP = Flask(__name__)
