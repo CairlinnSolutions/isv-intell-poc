@@ -7,6 +7,7 @@ from functools import wraps
 from flask import Flask, request, jsonify, _request_ctx_stack
 from flask_cors import cross_origin
 from jose import jwt
+import sys
 
 AUTH0_DOMAIN = 'spring-hall-6290.auth0.com'
 API_AUDIENCE = 'https://aabatch.herokuapp.com/'
@@ -134,6 +135,7 @@ def public():
 @requires_auth
 def dojob():
     print ("dojob called")
+    sys.stdout.flush()
     content = request.json
     print (content)
     response = "hello"
