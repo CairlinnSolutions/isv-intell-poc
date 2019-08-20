@@ -30,6 +30,12 @@ Post request
 https://http://0.0.0.0:5000/api/dojob
 {"AppName":"CaseTimer", "packages":"0331U000000EHq2", "whichDate":"2019-07-25", "filelocation":""}
 
+Updated code:
+git add .
+git commit -am "make it better"
+git push heroku master
+
+
 Tips:
 =============================
 https://heroku.com/deploy?template=
@@ -39,6 +45,3 @@ Now() - 58 * (1/24/60)
 
 heroku local web
 
-git add .
-git commit -am "make it better"
-git push heroku master
