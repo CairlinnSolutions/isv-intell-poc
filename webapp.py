@@ -147,9 +147,35 @@ def dojob():
     print (content)
     sys.stdout.flush()    
 
-    result = q.enqueue(startjobByDate, content['AppName'], content['packages'], content['whichDate'])
+    result = q.enqueue(startjobByDate, content['AppName'], content['packages'], content['whichDate'], "")
 
     return jsonify(message="STARTED")
+
+# This needs no authentication. Don't use in production
+@APP.route("/api/doit", methods=['POST'])
+def doit():
+    print ("doit called")
+    content = request.json
+    print (content)
+    sys.stdout.flush()    
+
+    print(s3filelocation)
+    result = q.enqueue(startjobByDate, content['AppName'], content['packages'], content['whichDate'], "")
+
+    return jsonify(message="STARTED")
+
+# This needs no authentication. Don't use in production
+@APP.route("/api/aa", methods=['POST'])
+def aa():
+    print ("aa called")
+    content = request.json
+    print (content)
+    sys.stdout.flush()    
+
+    result = q.enqueue(startjobByDate, content['AppName'], content['packages'], content['whichDate'], content['filelocation'])
+
+    return jsonify(message="STARTED")
+
 
 # This does not need authentication
 @APP.route('/')

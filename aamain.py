@@ -43,24 +43,32 @@ def startjobForYesterday(appname, packages):
     today = date.today()
     aday = today - timedelta(days=1)
     whichdate = aday.isoformat()
-    startjobByDate(appname, packages, whichdate)
+    startjobByDate(appname, packages, whichdate, '')
 
-def startjobByDate(appname, packages, whichdate):
+def startjobByDate(appname, packages, whichdate, filelocation):
     
-    print("startjobForADate");
+    print("startjobForADate, filelocation=")
+    print(filelocation)
 
-    #get EA metadata
-    url = metadataurl
-    r = requests.get(url, allow_redirects=False)
+    rec={}
+    pboorginfo={}
+    r = requests.get(metadataurl, allow_redirects=False)
     metadata = r.text
 
-    pboorginfo = getSFToken(pboorg)
-    print("after pboorginfo info");
+    if(filelocation == ''):
+        print("Get file location by inserting record")
+        #get EA metadata
 
-    rec = requestAAByDate(pboorginfo, packages, whichdate)
-    print("after aa record response");
+        pboorginfo = getSFToken(pboorg)
+        print("after pboorginfo info");
 
-    sumdf = createsum(pboorginfo, appname, whichdate, rec)
+        rec = requestAAByDate(pboorginfo, packages, whichdate)
+        print("after aa record response");
+    else:
+        print("Just get file")
+        rec['DownloadUrl'] = filelocation
+
+    sumdf = createsum(appname, whichdate, rec)
     print("after createsum");
     
     eaorginfo = getSFToken(eaorg)
@@ -108,7 +116,7 @@ def requestAAByDate(orginfo, packages, aday):
     return res
 
 
-def createsum(orgdata, appname, aday, rec):
+def createsum(appname, aday, rec):
     s = requests.get(rec['DownloadUrl']).content
     data = pd.read_csv(io.StringIO(s.decode('utf-8')))
 
