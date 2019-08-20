@@ -43,9 +43,9 @@ def startjobForYesterday(appname, packages):
     today = date.today()
     aday = today - timedelta(days=1)
     whichdate = aday.isoformat()
-    startjobByDate(appname, packages, whichdate, '')
+    startjobByDate(appname, packages, whichdate, '', 'False', 'True')
 
-def startjobByDate(appname, packages, whichdate, filelocation):
+def startjobByDate(appname, packages, whichdate, filelocation, storeinEA, storeinS3):
     
     print("startjobForADate, filelocation=")
     print(filelocation)
@@ -58,7 +58,6 @@ def startjobByDate(appname, packages, whichdate, filelocation):
     if(filelocation == ''):
         print("Get file location by inserting record")
         #get EA metadata
-
         pboorginfo = getSFToken(pboorg)
         print("after pboorginfo info");
 
@@ -66,20 +65,37 @@ def startjobByDate(appname, packages, whichdate, filelocation):
         print("after aa record response");
     else:
         print("Just get file")
-        rec['DownloadUrl'] = filelocation
 
-    sumdf = createsum(appname, whichdate, rec)
+    s = requests.get(rec[filelocation]).content
+    data = pd.read_csv(io.StringIO(s.decode('utf-8')))
+
+    print(data.head())
+
+    sumdf = createsum(appname, whichdate, rec, data)
     print("after createsum");
     
-    eaorginfo = getSFToken(eaorg)
-    print("after eaorginfo info");
-    dsexist = DoesDatasetExist(eaorginfo, dsname)
-    op = "overwrite"
-    if(dsexist): 
-        op = "upsert" 
-    
-    PushDataToEA(eaorginfo, metadata, sumdf, op, dsname)
-    print("data pushed to EA");
+    if (storeinEA == 'True'):
+        eaorginfo = getSFToken(eaorg)
+        print("after eaorginfo info");
+        dsexist = DoesDatasetExist(eaorginfo, dsname)
+        op = "overwrite"
+        if(dsexist): 
+            op = "upsert" 
+        
+        PushDataToEA(eaorginfo, metadata, sumdf, op, dsname)
+        print("data pushed to EA");
+
+    if (storeinS3 == 'True'):
+        csv_buffer = StringIO()
+        sumdf.to_csv(csv_buffer, index=False)
+        dailysumfilepath = dailysumfolderpath + '/' + whichdate  + '.csv'
+
+        s3 = boto3.resource('s3', aws_access_key_id=awskey,
+                        aws_secret_access_key=awssecret
+                        )
+        s3.Object(bucket, dailysumfilepath).put(Body=csv_buffer.getvalue())
+
+        print("data pushed to S3")
 
     return 
 
@@ -116,17 +132,7 @@ def requestAAByDate(orginfo, packages, aday):
     return res
 
 
-def createsum(appname, aday, rec):
-    s = requests.get(rec['DownloadUrl']).content
-    data = pd.read_csv(io.StringIO(s.decode('utf-8')))
-
-    print(data.head())
-
-    dailysumfilepath = dailysumfolderpath + '/' + aday  + '.csv'
-
-    s3 = boto3.resource('s3', aws_access_key_id=awskey,
-                        aws_secret_access_key=awssecret
-                        )
+def createsum(appname, aday, rec, data):
 
     orgdata = data.groupby('organization_id', as_index=False).agg(
         {
@@ -154,10 +160,6 @@ def createsum(appname, aday, rec):
     orgdata['extid'] = orgdata['orgid'] + orgdata['App'] + orgdata['dtLog'] 
 
     print(orgdata.head())
-
-    csv_buffer = StringIO()
-    orgdata.to_csv(csv_buffer, index=False)
-    #s3.Object(bucket, dailysumfilepath).put(Body=csv_buffer.getvalue())
 
     return orgdata
 

@@ -9,7 +9,7 @@ from flask_cors import cross_origin
 from jose import jwt
 import sys
 from datetime import date, timedelta
-from aamain import startjobByDate 
+from aa import startjobByDate 
 import redis
 from rq import Queue
 from worker import conn
@@ -152,19 +152,6 @@ def dojob():
     return jsonify(message="STARTED")
 
 # This needs no authentication. Don't use in production
-@APP.route("/api/doit", methods=['POST'])
-def doit():
-    print ("doit called")
-    content = request.json
-    print (content)
-    sys.stdout.flush()    
-
-    print(s3filelocation)
-    result = q.enqueue(startjobByDate, content['AppName'], content['packages'], content['whichDate'], "")
-
-    return jsonify(message="STARTED")
-
-# This needs no authentication. Don't use in production
 @APP.route("/api/aa", methods=['POST'])
 def aa():
     print ("aa called")
@@ -172,7 +159,7 @@ def aa():
     print (content)
     sys.stdout.flush()    
 
-    result = q.enqueue(startjobByDate, content['AppName'], content['packages'], content['whichDate'], content['filelocation'])
+    result = q.enqueue(startjobByDate, content['AppName'], content['packages'], content['whichDate'], content['filelocation'], 'False', 'True')
 
     return jsonify(message="STARTED")
 
