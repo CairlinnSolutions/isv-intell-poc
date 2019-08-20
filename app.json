@@ -5,76 +5,17 @@
     "logo": "https://kamipatel.github.io/appysite/aalogo.png",
     "keywords": ["salesforce", "App Analytics", "Python"],
     "env": {
-        "pboclientid": {
-          "description": "PBO org client id",
-          "value":"ToBeDone"
-        },
-        "pboclientsecret": {
-          "description": "PBO org client secret",
-          "value":"ToBeDone"
-        },
-        "pbousername": {
-          "description": "PBO org user name",
-          "value":"ToBeDone"
-        },
-        "pbopasswd": {
-          "description": "PBO org password",
-          "value":"ToBeDone"
-        },
-        "eaclientid": {
-            "description": "EA org client id",
-            "value":"ToBeDone"
-          },
-          "eaclientsecret": {
-            "description": "EA org client secret",
-            "value":"ToBeDone"
-          },
-          "eausername": {
-            "description": "EA org user name",
-            "value":"ToBeDone"
-          },
-          "eapasswd": {
-            "description": "EA org password",
-            "value":"ToBeDone"
-          },
-        "dsname": {
-          "description": "EA Data set name",
-          "value":"ToBeDone"
-        },
-        "metadatajsonurl": {
-          "description": "metadatajsonurl",
-          "value":"https://isvaa.s3-us-west-1.amazonaws.com/config/MetaDataJson.json"
-        },
+       
         "awskey": {
-          "description": "You can leave blank, used for storing raw files to S3",
+          "description": "for storing raw files to S3",
           "value": "ToBeDone",
           "required": false
         },
         "awssecret": {
-            "description": "You can leave blank, used for storing raw files to S3",
+            "description": "for storing raw files to S3",
             "value": "ToBeDone",
             "required": false
-          },
-        "sleepseconds": {
-          "description": "PBO org client secret",
-          "value": 90
-        },
-        "packages": {
-          "description": "comma seperated package ids for this partner app",
-          "value":"ToBeDone"
-        },
-        "REDIS_URL": {
-          "description": "Get it from Redis Add-on of your app",
-          "value":"ToBeDone"
-        },
-        "AUTH0_DOMAIN": {
-          "description": "AUTH0 domain, get it from AUTH0 Add-on of your app",
-          "value":"ToBeDone"
-        },
-        "API_AUDIENCE": {
-          "description": "AUTH0 domain, get it from AUTH0 Add-on of your app",
-          "value":"ToBeDone"
-        }   
+          } 
       }    
   }
  
