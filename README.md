@@ -27,7 +27,7 @@ Run worker:
 heroku local:run python worker.py
 
 Post request
-https://http://0.0.0.0:5000/api/dojob
+https://http://0.0.0.0:5000/api/aa
 {"AppName":"CaseTimer", "packages":"0331U000000EHq2", "whichDate":"2019-07-25", "filelocation":""}
 
 Updated code:
@@ -45,3 +45,24 @@ Now() - 58 * (1/24/60)
 
 heroku local web
 
+
+Additional info
+================
+'PackageIds': packages,
+        'DataType': 'CustomObjectUsageLog',
+        'StartTime': adaystart,
+        'EndTime': adayend
+
+PerformAARequest o = new PerformAARequest();
+
+Datetime startdt = Datetime.newInstance(
+    Date.today().addDays(-1),
+    Time.newInstance(0, 0, 0, 0)
+);
+
+Datetime enddt = Datetime.newInstance(
+    Date.today(),
+    Time.newInstance(0, 0, 0, 0)
+);
+
+PerformAARequest.startaa('CaseTimer', '0331U000000EHq2', startdt,  enddt);
