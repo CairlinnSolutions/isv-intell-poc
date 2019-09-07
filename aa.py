@@ -12,7 +12,7 @@ from io import StringIO
 
 awskey = os.environ['awskey']
 awssecret = os.environ['awssecret']
-bucket = os.environ('awsbucket')
+bucket = os.environ['awsbucket']
 
 #awskey='AKIAITVDBSKAAQTDB3NQ' 
 #awssecret='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'
