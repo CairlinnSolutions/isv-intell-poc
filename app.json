@@ -12,10 +12,15 @@
           "required": false
         },
         "awssecret": {
-            "description": "for storing raw files to S3",
-            "value": "ToBeDone",
-            "required": false
-          } 
-      }    
+          "description": "for storing raw files to S3",
+          "value": "ToBeDone",
+          "required": false
+        }, 
+        "awsbucket": {
+          "description": "name of AWS S3 bucket",
+          "value": "ToBeDone",
+          "required": false
+        } 
+  }    
   }
  
