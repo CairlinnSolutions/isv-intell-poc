@@ -16,7 +16,8 @@ awssecret = os.environ['awssecret']
 #awskey='AKIAITVDBSKAAQTDB3NQ' 
 #awssecret='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'
 
-bucket = "isvaa"
+#bucket = "isvaa"
+bucket = os.environ('awsbucket')
 dailyfolderpath = "daily"
 dailysumfolderpath = "dailysum"
 
