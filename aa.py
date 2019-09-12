@@ -42,6 +42,9 @@ def copyandsummarize(appname, packages, whichdate, filelocation):
                     )
     s3.Object(bucket, dailysumfilepath).put(Body=csv_buffer.getvalue())
 
+    #flush the buffer
+    csv_buffer.flush
+
     #Store the raw file
     data.to_csv(csv_buffer, index=False)
     dailyfilepath = dailyfolderpath + '/' + whichdate  + '-' + appname + '.csv'
